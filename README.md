@@ -16,6 +16,14 @@ npm create svelte@latest my-app
 
 ## Developing
 
+Create a `.env` file and add this
+
+```bash
+SP_DC=your-spotify-cookie
+```
+
+Check out guides on how to get your spotify cookie on google
+
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
