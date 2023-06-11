@@ -17,6 +17,10 @@ const predefinedRequestHeaders = {
   "Sec-Fetch-Site": "cross-site",
 };
 
+const predefinedResponseHeaders = {
+  "content-type": "application/json; charset=utf-8",
+};
+
 const app = new Hono<{ Bindings: Bindings }>();
 
 let ACCESS_TOKEN: string | null = null;
@@ -30,6 +34,16 @@ type AccessTokenAPIData = {
 };
 
 app.get("/lyrics/:track_id", async (c) => {
+  if (!c.env.SPOTIFY_COOKIE) {
+    return new Response(
+      JSON.stringify({ error: "API hasn't been setup correctly" }),
+      {
+        headers: predefinedResponseHeaders,
+        status: 500,
+      }
+    );
+  }
+
   try {
     if (!ACCESS_TOKEN || ACCESS_TOKEN_EXPIRY <= Date.now()) {
       console.log("[DEBUG] Getting token");
@@ -50,9 +64,8 @@ app.get("/lyrics/:track_id", async (c) => {
         return new Response(
           JSON.stringify({ error: "Unknown Error Occurred!" }),
           {
-            headers: {
-              "content-type": "application/json; charset=utf-8",
-            },
+            headers: predefinedResponseHeaders,
+            status: 500,
           }
         );
       }
@@ -74,25 +87,26 @@ app.get("/lyrics/:track_id", async (c) => {
         ? JSON.stringify({ error: "Lyrics are not available for this song" })
         : lyrics,
       {
-        headers: {
-          "content-type": "application/json; charset=utf-8",
-        },
+        headers: predefinedResponseHeaders,
+        status: lyrics === "" ? 404 : 200,
       }
     );
   } catch (e) {
     console.log(e);
     return new Response(JSON.stringify({ error: "Unknown Error Occurred!" }), {
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
+      headers: predefinedResponseHeaders,
+      status: 500,
     });
   }
 });
 
 app.get("*", (c) =>
-  c.json({
-    error: "Bad Request, Try Requesting to /lyrics/<spotify_track_id>",
-  })
+  c.json(
+    {
+      error: "Bad Request, Try Requesting to /lyrics/<spotify_track_id>",
+    },
+    404
+  )
 );
 
 export default app;
