@@ -1,46 +1,60 @@
-# create-svelte
+# Spot API
+> **Warning:** Spotify doesn't provide any official lyrics API, this project is supposed to provide lyrics by requesting to spotify's WebPlayer lyrics API. So I can't host it for you. You can't use this API for any commercial use, this API is supposed to be self hosted and used in personal sites like your portfolio. I, [BlankParticle](https://github.com/BlankParticle) or any other entity mentioned in the project will not responsible for anything.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Context
+I was creating my Portfolio when it occurred to me that I could add a **Spotify Widget** in my portfolio, I saw some examples but they all looked the same. So as a responsible developer, I tried to create a widget with lyrics, but spotify didn't have any lyrics API thus this Project was born.
 
-## Creating a project
+## Project Structure
+Initially, this was a [Svelte Kit](https://kit.svelte.dev) Project, I used Svelte API routes with [Vercel](https://vercel.com) as a hosting. But later I thought that maybe I can create this as a Project with standalone serverless functions.
 
-If you're seeing this, you've probably already done this step. Congrats!
+You can find code for different cloud providers in their respective folders.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### Currently Planned Platforms
+- [x] Cloudflare Workers (wrangler)
+- [ ] Vercel
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Self Hosting your API
 
-## Developing
-
-Create a `.env` file and add this
-
-```bash
-SP_DC=your-spotify-cookie
-```
-
-Check out guides on how to get your spotify cookie on google
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+First clone this repo using git
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+git clone https://github.com/BlankParticle/spotapi.git
+cd spotapi
 ```
+Now you need Your [Spotify User Cookie](https://github.com/fondberg/spotcast#obtaining-sp_dc-and-sp_key-cookies), You can make a new spotify account. You only need the `sp_dc` cookie. Be sure not to leak this cookie because this can be used to login into your spotify account.
 
-## Building
+> **Note:** This cookie may expire if you logout from your account or after 1 year of use, You must check for that and provide a new cookie when that happens.
 
-To create a production version of your app:
-
+Now save this cookie in a `.env` file in project root
 ```bash
-npm run build
+SPOTIFY_COOKIE=your-sp_dc-cookie
+```
+Then install NodeJs and `npm` (or `pnpm`/`yarn`) if haven't already.
+
+### Cloudflare Worker
+#### Test Locally before deploying
+```bash
+cp .env wrangler/.dev.vars
+cd wrangler
+npm install # or use "pnpm install" or "yarn"
+npm run dev # or use "pnpm dev" or "yarn dev"
 ```
 
-You can preview the production build with `npm run preview`.
+If all that works then you can go to <http://localhost:8787/lyrics/4PTG3Z6ehGkBFwjybzWkR8> and test your worker.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+#### Deploy to cloudflare worker
+If you don't have a cloudflare account, [create one](https://dash.cloudflare.com/). 
+Now type,
+```bash
+npm run add-secret # or use "pnpm add-secret" or "yarn add-secret"
+```
+then login (if prompted), and put your cookie.
+
+Now you can run,
+```bash
+npm run deploy # or use "pnpm run deploy" or "yarn run deploy"
+```
+And, You have your self hosted Spotify Lyrics API.
+
+### Vercel
+> Work in Progress

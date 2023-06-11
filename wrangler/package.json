@@ -1,0 +1,18 @@
+{
+  "name": "spot-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "add-secret": "wrangler secret put SPOTIFY_COOKIE",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "hono": "^3.2.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "typescript": "^5.1.3",
+    "wrangler": "3.1.0"
+  }
+}
