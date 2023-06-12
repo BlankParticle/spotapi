@@ -4,6 +4,9 @@
 ## Context
 I was creating my Portfolio when it occurred to me that I could add a **Spotify Widget** in my portfolio, I saw some examples but they all looked the same. So as a responsible developer, I tried to create a widget with lyrics, but spotify didn't have any lyrics API thus this Project was born.
 
+## The Blog Article
+Read more about How I created this project at [my blog article](https://blog.blankparticle.me/creating-a-self-hosted-spotify-lyrics-api-using-cloudflare-workers).
+
 ## Project Structure
 Initially, this was a [Svelte Kit](https://kit.svelte.dev) Project, I used Svelte API routes with [Vercel](https://vercel.com) as a hosting. But later I thought that maybe I can create this as a Project with standalone serverless functions.
 
@@ -21,7 +24,7 @@ First clone this repo using git
 git clone https://github.com/BlankParticle/spotapi.git
 cd spotapi
 ```
-Now you need Your [Spotify User Cookie](https://github.com/fondberg/spotcast#obtaining-sp_dc-and-sp_key-cookies), You can make a new spotify account. You only need the `sp_dc` cookie. Be sure not to leak this cookie because this can be used to login into your spotify account.
+Now you need Your [Spotify User Cookie](https://blog.blankparticle.me/creating-a-self-hosted-spotify-lyrics-api-using-cloudflare-workers#heading-obtaining-the-spdc-cookie), You can make a new spotify account. You only need the `sp_dc` cookie. Be sure not to leak this cookie because this can be used to login into your spotify account.
 
 > **Note:** This cookie may expire if you logout from your account or after 1 year of use, You must check for that and provide a new cookie when that happens.
 
