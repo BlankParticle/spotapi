@@ -4,6 +4,7 @@
 **/package-lock.json
 **/yarn.lock
 .env
+.direnv
 
 # Wrangler Ignore
 wrangler/.dev.vars
