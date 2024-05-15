@@ -1,3 +1,7 @@
+> [!IMPORTANT]  
+> #### As of writing this, I got the information that Spotify has made lyrics a premium feature, so this API will not work with throw away accounts anymore. Its not worth the risk to use this API with a Spotify Premium account. Thus the repo has been archived
+ 
+
 # 🎧 Spot API
 > **Warning:** Spotify doesn't provide any official lyrics API, this project is supposed to provide lyrics by requesting to spotify's WebPlayer lyrics API. So I can't host it for you. You can't use this API for any commercial use, this API is supposed to be self hosted and used in personal sites like your portfolio. I, [BlankParticle](https://github.com/BlankParticle) or any other entity mentioned in the project will not responsible for anything.
 
